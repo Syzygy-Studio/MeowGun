@@ -632,7 +632,7 @@ PlayerSettings:
   cloudServicesEnabled:
     UNet: 1
   facebookSdkVersion: 7.9.4
-  apiCompatibilityLevel: 2
+  apiCompatibilityLevel: 3
   cloudProjectId: 843439f6-52a0-430f-8c09-adb8e097d549
   projectName: MeowGun
   organizationId: xpydqq
