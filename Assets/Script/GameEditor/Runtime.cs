@@ -23,7 +23,7 @@ public class Runtime : MonoBehaviour
 
         foreach(var v in mesh.vertices)
         {
-            Debug.Log(v);
+            //Debug.Log(v);
         }
 
         MeshFilter.mesh = mesh;

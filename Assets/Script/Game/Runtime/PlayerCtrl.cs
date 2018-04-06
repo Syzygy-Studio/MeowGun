@@ -110,8 +110,6 @@ public class PlayerCtrl : MonoBehaviour
                         if (!Input.GetKey(InputManager.S) && Input.GetKeyDown(InputManager.Space)) Rigidbody.AddForce(Vector3.up * 200);
                         if (Input.GetKey(InputManager.S) && Input.GetKeyDown(InputManager.Space))InputManager.SetFloatDownSpace(0.3f);
                     }
-                        
-                    Debug.Log(InputManager.FloatDownSpace + "+" + transform.IsCrossGround());
                 }
                 break;
 
