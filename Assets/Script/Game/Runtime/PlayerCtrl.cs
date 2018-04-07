@@ -15,8 +15,8 @@ public enum State { Ground, Wall};
 /// </summary>
 public struct DefaultQuaternion
 {
-    public Quaternion FrontQuaternion { get { return Quaternion.identity; } }
-    public Quaternion BackQuaternion { get { return new Quaternion(0, 1, 0, 0); } }
+    public Quaternion FrontQuaternion { get { return new Quaternion(0, 7, 0,0.7f); } }
+    public Quaternion BackQuaternion { get { return FrontQuaternion.Conjugate(); } }
 };
 /// <summary>
 /// 主角控制，作为脚本挂在主角下。
@@ -91,14 +91,14 @@ public class PlayerCtrl : MonoBehaviour
 
                     if (GetDirection() == Direction.Right)
                     {
-                        if (InputManager.FloatAD >= 0) Move(1.5f, Vector3.forward);
-                        else Move(1f, Vector3.forward);
+                        if (InputManager.FloatAD >= 0) Move(1.5f, Vector3.right);
+                        else Move(1f, Vector3.right);
                         animator.SetFloat("X", InputManager.FloatAD);
                     }
                     else
                     {
-                        if (InputManager.FloatAD <= 0) Move(1.5f, Vector3.forward);
-                        else Move(1f, Vector3.forward);
+                        if (InputManager.FloatAD <= 0) Move(1.5f, Vector3.left);
+                        else Move(1f, Vector3.left);
                         animator.SetFloat("X", -InputManager.FloatAD);
                     }
                     animator.SetFloat("Y", InputManager.FloatSpace);
