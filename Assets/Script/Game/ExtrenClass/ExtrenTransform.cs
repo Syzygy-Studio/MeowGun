@@ -13,7 +13,7 @@ public static class ExtrenTransform
     /// </summary>
     public static bool IsGround(this Transform transform)
     {
-        if (Physics.Raycast(transform.position + new Vector3(0, 0.1f, 0), Vector3.down, 0.2f)) return true;
+        if (Physics.Raycast(transform.position + new Vector3(0, 0.1f, 0), Vector3.down, 0.3f)) return true;
         return false;
     }
 
@@ -37,7 +37,7 @@ public static class ExtrenTransform
     /// </summary>
     public static bool IsLeftWall(this Transform transform)
     {
-        if (Physics.Raycast(transform.position + new Vector3(0, 0.5f, 0), Vector3.back, 0.1f, ~(1 << LayerMask.NameToLayer("Cross")))) return true;
+        if (Physics.Raycast(transform.position + new Vector3(0, 0.2f, 0), Vector3.left, 0.1f, ~(1 << LayerMask.NameToLayer("Cross")))) return true;
         return false;
     }
     /// <summary>
@@ -45,13 +45,13 @@ public static class ExtrenTransform
     /// </summary>
     public static bool IsRightWall(this Transform transform)
     {
-        if (Physics.Raycast(transform.position + new Vector3(0, 0.5f, 0), Vector3.forward, 0.1f, ~(1 << LayerMask.NameToLayer("Cross")))) return true;
+        if (Physics.Raycast(transform.position + new Vector3(0, 0.2f, 0), Vector3.right, 0.1f, ~(1 << LayerMask.NameToLayer("Cross")))) return true;
         return false;
     }
 
     public static bool IsForwardWall(this Transform transform)
     {
-        if (Physics.Raycast(transform.position + new Vector3(0, 0.5f, 0), transform.forward, 0.1f, ~(1 << LayerMask.NameToLayer("Cross")))) return true;
+        if (Physics.Raycast(transform.position + new Vector3(0, 0.4f, 0), transform.forward, 0.1f, ~(1 << LayerMask.NameToLayer("Cross")))) return true;
         return false;
     }
     #endregion

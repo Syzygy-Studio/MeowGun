@@ -15,7 +15,7 @@ public enum State { Ground, Wall};
 /// </summary>
 public struct DefaultQuaternion
 {
-    public Quaternion FrontQuaternion { get { return new Quaternion(0, 7, 0,0.7f); } }
+    public Quaternion FrontQuaternion { get { return new Quaternion(0, 0.7f, 0, 0.7f); } }
     public Quaternion BackQuaternion { get { return FrontQuaternion.Conjugate(); } }
 };
 /// <summary>
@@ -47,7 +47,7 @@ public class PlayerCtrl : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out raycastHitAim, 100, 1 << LayerMask.NameToLayer("Aim")))
         {
-            if (Vector3.Dot(Vector3.forward, raycastHitAim.point - transform.position) >= 0) return Direction.Right;
+            if (Vector3.Dot(Vector3.right, raycastHitAim.point - transform.position) >= 0) return Direction.Right;
             else return Direction.Left;
         }
         return Direction.Right;
@@ -97,8 +97,8 @@ public class PlayerCtrl : MonoBehaviour
                     }
                     else
                     {
-                        if (InputManager.FloatAD <= 0) Move(1.5f, Vector3.left);
-                        else Move(1f, Vector3.left);
+                        if (InputManager.FloatAD <= 0) Move(1.5f, Vector3.right);
+                        else Move(1f, Vector3.right);
                         animator.SetFloat("X", -InputManager.FloatAD);
                     }
                     animator.SetFloat("Y", InputManager.FloatSpace);
@@ -126,8 +126,8 @@ public class PlayerCtrl : MonoBehaviour
                     if (Input.GetKeyDown(InputManager.Space))
                     {
                         GetComponent<Rigidbody>().isKinematic = false;
-                        if(GetDirection() == Direction.Right) Rigidbody.AddForce(new Vector3(0, 1, -0.2f) * 200);
-                        else Rigidbody.AddForce(new Vector3(0, 1, 0.2f) * 200);
+                        if(GetDirection() == Direction.Right) Rigidbody.AddForce(new Vector3(-0.2f, 1, 0) * 200);
+                        else Rigidbody.AddForce(new Vector3(0.2f, 1, 0) * 200);
 
                     }
                 }
@@ -185,7 +185,7 @@ public class PlayerCtrl : MonoBehaviour
             foreach (var c in crossGround)
             {
                 if (Vector3.Dot(c.transform.forward, transform.position - c.transform.position) >= 0 && InputManager.FloatDownSpace == 0)
-                    Physics.IgnoreCollision(GetComponent<BoxCollider>(), c, false);
+                    Physics.IgnoreCollision(GetComponent<Collider>(), c, false);
                 else
                     Physics.IgnoreCollision(GetComponent<Collider>(), c);
             }

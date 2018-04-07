@@ -19,9 +19,9 @@ public class CameraCtrl : MonoBehaviour
 	void Update ()
     {
         transform.position = Vector3.Lerp(transform.position,
-           new Vector3(4,
+           new Vector3(Mathf.Clamp(Player.position.x, LimitLeftX, LimitRightX),
             Mathf.Clamp(Player.position.y + 0.5f, LimitDownY, 100),
-            Mathf.Clamp(Player.position.z, LimitLeftX, LimitRightX)),
+            -4),
            Time.deltaTime * 5);
 	}
 }
