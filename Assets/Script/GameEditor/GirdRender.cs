@@ -16,7 +16,7 @@ public class GirdRender : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IsActive) Material.color = new Color(1, 1, 1, Mathf.Lerp(Material.color.a, 1, Time.deltaTime * 3));
+        if (IsActive) Material.color = new Color(1, 1, 1, Mathf.Lerp(Material.color.a, 200f / 255f, Time.deltaTime * 3));
         else Material.color = new Color(1, 1, 1, Mathf.Lerp(Material.color.a, 0, Time.deltaTime * 3));
     }
 
@@ -27,6 +27,7 @@ public class GirdRender : MonoBehaviour
         GL.Color(new Color(1, 1, 1, 1));
         GL.PushMatrix();
         GL.Begin(GL.LINES);
+
 
         //渲染从左到右的横线，从前到后共五条，包含高度。
         for (int i = 0; i <= 5; i++)

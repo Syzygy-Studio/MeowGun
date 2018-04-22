@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class MapInfo
 {
-    private string name { get; set; }
-    private int width { get; set; }
-    private int height { get; set; }
+    private string name;
+    private int width;
+    private int height;
 
     public MapInfo(string name,int width, int height)
     {
@@ -19,7 +19,20 @@ public class MapInfo
     public int GetMapWidth() => width;
     public int GetMapHeight() => height;
 
-    public void SetMapName(string value) => name = value;
-    public void SetMapWidth(int value) => width = value;
-    public void SetMapHeight(int value) => height = value;
+    public void SetMapName(string value)
+    {
+        name = value;
+    }
+    public void SetMapWidth(int value)
+    {
+        width = value;
+        UIManager.ResetMipMapCamera();
+        MapManager.CheckIsOverRange();
+    }
+    public void SetMapHeight(int value)
+    {
+        height = value;
+        UIManager.ResetMipMapCamera();
+        MapManager.CheckIsOverRange();
+    }
 }

@@ -117447,6 +117447,7 @@ GameObject:
   - component: {fileID: 2044928378}
   - component: {fileID: 2044928377}
   - component: {fileID: 2044928381}
+  - component: {fileID: 2044928382}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -117476,7 +117477,7 @@ Camera:
   m_GameObject: {fileID: 2044928376}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 1, g: 0.51724136, b: 0, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -117533,3 +117534,20 @@ MonoBehaviour:
   LimitLeftX: -20
   LimitRightX: 20
   LimitDownY: 1
+--- !u!114 &2044928382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2044928376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96f6ac8c5ac4b0d4aba2d86ef70447df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  edgesOnly: 0
+  edgeColor: {r: 0, g: 0, b: 0, a: 1}
+  backgroundColor: {r: 1, g: 1, b: 1, a: 1}
+  sampleDistance: 1
+  sensitivityDepth: 1
+  sensitivityNormals: 1
