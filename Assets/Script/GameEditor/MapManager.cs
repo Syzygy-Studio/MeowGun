@@ -12,16 +12,25 @@ public class MapManager : MonoBehaviour
     public int width;
     public int height;
 
+    public BoxCollider BoxCollider;
+
     private void Awake()
     {
         Map = new MapInfo("A", width, height);
         MapManagerTransform = transform;
+
+        Map.SetMapWidth(width);
+        Map.SetMapHeight(height);
+        BoxCollider.center = Map.GetCenter();
+        BoxCollider.size = Map.GetCollisionSize();
     }
 
     private void Update()
     {
         Map.SetMapWidth(width);
         Map.SetMapHeight(height);
+        BoxCollider.center = Map.GetCenter();
+        BoxCollider.size = Map.GetCollisionSize();
     }
 
     public static void CheckIsOverRange()

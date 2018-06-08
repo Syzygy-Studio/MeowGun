@@ -20,7 +20,7 @@ Properties {
 		{  
         Tags{"LightMode"="Always"}  
         Cull Front  
-        ZWrite On  
+        ZWrite On
         CGPROGRAM  
         #pragma vertex vert  
         #pragma fragment frag  

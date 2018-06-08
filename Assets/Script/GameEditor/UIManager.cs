@@ -8,20 +8,15 @@ public class UIManager : MonoBehaviour
 
     private RenderTexture smallMap;
 	// Use this for initialization
-	void Start ()
+	void Awake ()
     {
         MipMapCamera = GameObject.Find("MipMapCamera").GetComponent<Camera>();
         ResetMipMapCamera();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     public static void ResetMipMapCamera()
     {
-        MipMapCamera.transform.position = new Vector3((MapManager.Map.GetMapWidth() / 2) - 0.5f, (MapManager.Map.GetMapHeight() / 2) + 0.5f, -5);
+        MipMapCamera.transform.position = new Vector3(MapManager.Map.GetCenter().x, MapManager.Map.GetCenter().y, -5);
 
         float s_1 = (MapManager.Map.GetMapWidth() + 1) / 4f;
         float s_2 = MapManager.Map.GetMapHeight() / 2f;

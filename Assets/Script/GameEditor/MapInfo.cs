@@ -8,7 +8,7 @@ public class MapInfo
     private int width;
     private int height;
 
-    public MapInfo(string name,int width, int height)
+    public MapInfo(string name, int width, int height)
     {
         this.name = name;
         this.width = width;
@@ -18,6 +18,20 @@ public class MapInfo
     public string GetMapName() => name;
     public int GetMapWidth() => width;
     public int GetMapHeight() => height;
+
+    public Vector3 GetCollisionSize() => new Vector3(width, height, 0);
+
+    public Vector3 GetCenter()
+    {
+        float w, h;
+        if (width % 2 == 0) w = width / 2 - 0.5f;
+        else w = width / 2;
+
+        if (height % 2 == 0) h = height / 2;
+        else h = height / 2 + 0.5f;
+
+        return new Vector3(w, h, 0);
+    }
 
     public void SetMapName(string value)
     {

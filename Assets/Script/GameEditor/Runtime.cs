@@ -17,8 +17,7 @@ public class Runtime : MonoBehaviour
         for (int i = 0; i < mesh.vertices.Length; i++)
         {
             var v = mesh.vertices[i];
-            if (v.x < 0) v = new Vector3(-1, v.y, v.z);
-            Instantiate(V, v, Quaternion.identity);
+            Instantiate(V, MeshFilter.transform.TransformPoint(v), Quaternion.identity);
         }
 
         foreach(var v in mesh.vertices)
@@ -33,7 +32,7 @@ public class Runtime : MonoBehaviour
     {
         foreach(var v in MeshFilter.mesh.vertices)
         {
-            Gizmos.DrawSphere(v, 0.04f);
+            Gizmos.DrawSphere(MeshFilter.transform.TransformPoint(v), 0.04f);
         }
     }
 

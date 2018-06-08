@@ -10,6 +10,8 @@ public class CameraCtrl : MonoBehaviour
     public float LimitLeftX;
     public float LimitRightX;
     public float LimitDownY = 1;
+
+    public float Z = -3f;
 	// Use this for initialization
 	void Start () {
 		
@@ -21,7 +23,7 @@ public class CameraCtrl : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position,
            new Vector3(Mathf.Clamp(Player.position.x, LimitLeftX, LimitRightX),
             Mathf.Clamp(Player.position.y + 0.5f, LimitDownY, 100),
-            -4),
+            Z),
            Time.deltaTime * 5);
 	}
 }

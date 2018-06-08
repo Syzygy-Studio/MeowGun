@@ -36,7 +36,7 @@ public class InputManager : MonoBehaviour
 
     private DefaultQuaternion defaultQuaternion;
 
-    private void Update()
+    private void FixedUpdate()
     {
         //FloatAD
         if (Input.GetKey(A)) FloatAD -= Time.deltaTime * 4;
@@ -54,7 +54,7 @@ public class InputManager : MonoBehaviour
 
 
         //FloatSpace
-        if (!Player.IsGround()) FloatSpace += Time.deltaTime * 4;
+        if (!Player.transform.IsGround()) FloatSpace += Time.deltaTime * 4;
         else FloatSpace -= Time.deltaTime * 4;
 
         FloatSpace = Mathf.Clamp01(FloatSpace);
@@ -65,8 +65,8 @@ public class InputManager : MonoBehaviour
 
         //PlayerRotate
         PlayerRotate = Quaternion.Lerp(defaultQuaternion.FrontQuaternion, defaultQuaternion.BackQuaternion, PlayerRotateLerp);
-        if (Player.GetComponent<PlayerCtrl>().GetDirection() == Direction.Left) PlayerRotateLerp += Time.deltaTime * 6;
-        else PlayerRotateLerp -= Time.deltaTime * 6;
+        if (Player.GetComponent<PlayerCtrl>().GetDirection() == Direction.Left) PlayerRotateLerp += Time.deltaTime * 4;
+        else PlayerRotateLerp -= Time.deltaTime * 4;
         PlayerRotateLerp = Mathf.Clamp01(PlayerRotateLerp);
     }
 
