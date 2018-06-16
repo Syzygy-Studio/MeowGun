@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using SonderStudio.Input;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -59,6 +60,7 @@ public class PlayerCtrl : MonoBehaviour
     /// <summary>
     /// 玩家当前朝向。
     /// </summary>
+    [SerializeField]
     Direction direction = Direction.Left;
 
     /// <summary>
