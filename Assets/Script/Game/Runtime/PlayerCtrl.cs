@@ -60,7 +60,6 @@ public class PlayerCtrl : MonoBehaviour
     /// <summary>
     /// 玩家当前朝向。
     /// </summary>
-    [SerializeField]
     Direction direction = Direction.Left;
 
     /// <summary>
@@ -75,6 +74,8 @@ public class PlayerCtrl : MonoBehaviour
     Vector3 moveDirection = Vector3.zero; //玩家移动向量。
 
     private Direction d; //临时变量，获取上一帧的方向。
+
+    private float ad = InputManager.FloatAD;
 
     /// <summary>
     /// 获取玩家当前朝向，返回方向枚举。
@@ -126,19 +127,19 @@ public class PlayerCtrl : MonoBehaviour
     /// </summary>
     private void playNormalAction()
     {
-        float ad = InputManager.FloatAD;
-
-        floatLimit(ref ad);
-
         if (transform.GroundNormal().y != 1) moveDirection = -Vector3.Reflect(transform.GroundNormal(), Vector3.up) * ad * Speed;
         moveDirection = new Vector3(ad, 0, 0) * Speed;
 
-        if (transform.IsGround())
+        if (transform.IsGround() && !transform.IsCrossGround())
         {
-            if (Input.GetKeyDown(InputManager.Space))
-            {
-                rigidbody.AddForce(Vector3.up * JumpHeight);
-            }
+            if (Input.GetKeyDown(InputManager.Space)) rigidbody.AddForce(Vector3.up * JumpHeight);
+        }
+
+
+        if (transform.IsCrossGround())
+        {
+            if (!Input.GetKey(InputManager.S) && Input.GetKeyDown(InputManager.Space)) rigidbody.AddForce(Vector3.up * JumpHeight);
+            if (Input.GetKey(InputManager.S) && Input.GetKeyDown(InputManager.Space)) InputManager.SetFloatDownSpace(0.3f);
         }
 
         rigidbody.MovePosition(transform.position + moveDirection);
@@ -162,10 +163,6 @@ public class PlayerCtrl : MonoBehaviour
     /// </summary>
     private void playAttackAction()
     {
-        float ad = InputManager.FloatAD;
-
-        floatLimit(ref ad);
-
         moveDirection = new Vector3(ad, 0, 0);
 
         if(GetDirection() == Direction.Left)
@@ -179,12 +176,16 @@ public class PlayerCtrl : MonoBehaviour
             else moveDirection *= BackSpeed;
         }
 
-        if (transform.IsGround())
+        if (transform.IsGround() && !transform.IsCrossGround())
         {
-            if (Input.GetKeyDown(InputManager.Space))
-            {
-                rigidbody.AddForce(Vector3.up * JumpHeight);
-            }
+            if (Input.GetKeyDown(InputManager.Space)) rigidbody.AddForce(Vector3.up * JumpHeight);
+        }
+
+
+        if (transform.IsCrossGround())
+        {
+            if (!Input.GetKey(InputManager.S) && Input.GetKeyDown(InputManager.Space)) rigidbody.AddForce(Vector3.up * JumpHeight);
+            if (Input.GetKey(InputManager.S) && Input.GetKeyDown(InputManager.Space)) InputManager.SetFloatDownSpace(0.3f);
         }
 
         rigidbody.MovePosition(transform.position + moveDirection);
@@ -199,7 +200,7 @@ public class PlayerCtrl : MonoBehaviour
         if (GetDirection() == Direction.Left) animator.SetFloat("X", -InputManager.FloatAD);
         else animator.SetFloat("X", InputManager.FloatAD);
         animator.SetFloat("Y", InputManager.FloatSpace);
-        
+
         animator.SetFloat("MousePos", aimAngle());
     }
 
@@ -241,6 +242,25 @@ public class PlayerCtrl : MonoBehaviour
         else limited = InputManager.FloatAD;
     }
 
+    /// <summary>
+    /// 控制可穿过的地面。
+    /// </summary>
+    private void ctrlCrossGround()
+    {
+        if (Physics.CheckSphere(transform.position, 1f, 1 << LayerMask.NameToLayer("Cross")))
+        {
+            var crossGround = Physics.OverlapSphere(transform.position, 1f, 1 << LayerMask.NameToLayer("Cross"));
+            foreach (var c in crossGround)
+            {
+                if (Vector3.Dot(c.transform.forward, transform.position - c.transform.position) >= 0 && InputManager.FloatDownSpace == 0)
+                    Physics.IgnoreCollision(GetComponent<Collider>(), c, false);
+                else
+                    Physics.IgnoreCollision(GetComponent<Collider>(), c);
+            }
+        }
+        else return;
+    }
+
 
     private void Awake()
     {
@@ -258,7 +278,9 @@ public class PlayerCtrl : MonoBehaviour
     {
         d = GetDirection(); //得到上一帧的方向。
 
+        floatLimit(ref ad);
         changePose();
+        ctrlCrossGround();
 
         if (pose == Pose.Normal)
         {

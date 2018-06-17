@@ -31,13 +31,13 @@ public static class ExtrenTransform
     }
 
     /// <summary>
-    /// 返回玩家头顶是否有可穿过的墙。
+    /// 返回玩家脚下是否有可穿过的地板。
     /// </summary>
     /// <param name="transform"></param>
     /// <returns></returns>
     public static bool IsCrossGround(this Transform transform)
     {
-        if (Physics.Raycast(transform.position + new Vector3(0, 0.1f, 0), Vector3.down, 0.2f, 1 << LayerMask.NameToLayer("Cross"))) return true;
+        if (Physics.Raycast(transform.position + new Vector3(0, 0.1f, 0), Vector3.down, 0.3f, 1 << LayerMask.NameToLayer("Cross"))) return true;
         return false;
     }
 
