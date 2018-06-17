@@ -100,6 +100,9 @@ public class PlayerCtrl : MonoBehaviour
         }
     }
 
+
+    float n = 0; //临时变量，用于判断松开鼠标时间是否大于2s。
+    float t = 0; //临时变量，用于计算层级权重插值。
     /// <summary>
     /// 点击鼠标改变角色的姿态。
     /// </summary>
@@ -109,16 +112,15 @@ public class PlayerCtrl : MonoBehaviour
         {
             n = 0;
             pose = Pose.Attack;
-            animator.SetLayerWeight(2, 1);
         }
         else
         {
             n += Time.deltaTime;
             if (n > 2)
             {
-                pose = Pose.Normal;
-                animator.SetLayerWeight(2, 0);
+              pose = Pose.Normal;
             }
+
         }
     }
 
@@ -269,10 +271,8 @@ public class PlayerCtrl : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
 
-        animator.SetLayerWeight(2, 0);
+        animator.SetLayerWeight(3, 0);
     }
-
-    float n = 0;
 
     private void Update()
     {
@@ -286,11 +286,13 @@ public class PlayerCtrl : MonoBehaviour
         {
             playNormalAction();
             playNormalAnimation();
+            animator.SetLayerWeight(3, Mathf.Clamp01(t -= Time.deltaTime * 5));
         }
         else
         {
             playAttackAction();
             playAttackAnimation();
+            animator.SetLayerWeight(3, Mathf.Clamp01(t += Time.deltaTime * 5));
         }
     }
 
